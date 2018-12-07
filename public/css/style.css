@@ -1,35 +1,52 @@
-body {
-    font: 13px sans-serif;
-    position: relative;
-    width: 960px;
-    height: 500px;
-  }
-  
-  form {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-  }
-  
-  rect {
-    fill: none;
-    pointer-events: all;
-  }
-  
-  circle,
-  .line {
-    fill: none;
-    stroke: steelblue;
-    stroke-width: 1.5px;
-  }
-  
-  circle {
-    fill: #fff;
-    fill-opacity: .2;
-    cursor: move;
-  }
-  
-  .selected {
-    fill: #ff7f0e;
-    stroke: #ff7f0e;
-  }
+body { background:#eee; margin:0 }
+
+.box1{
+  float:left;
+  height:25em;
+  width:50%;
+  background-color: green;
+}
+.box2 {
+  float:right;
+  height:25em;
+  width:50%;
+  background-color:yellow;
+}
+svg {
+  display:block; position: relative;
+  top:5%; left:5%; width:90%; height:90%;
+}
+.face { stroke:#000; stroke-width:20px; stroke-linecap:round }
+
+form {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+
+rect {
+  fill: none;
+  pointer-events: all;
+}
+
+circle,
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+circle {
+  fill: #fff;
+  fill-opacity: .2;
+  cursor: move;
+}
+
+circle:hover{
+  fill: rgb(76, 100, 107);
+}
+
+.selected {
+  fill: #ff7f0e;
+  stroke: #ff7f0e;
+}
