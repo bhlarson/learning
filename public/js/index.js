@@ -2,12 +2,7 @@ var svg = d3.select("svg")
     .attr("tabindex", 1)
     .on("mousedown", mousedown);
 
-var width = 960,
-    height = 500;
-
-var points = d3.range(1, 5).map(function(i) {
-  return [i * width / 5, 50 + Math.random() * (height - 100)];
-});
+var points = [];
 
 var dragged = null,
     selected = points[0];
@@ -57,7 +52,7 @@ function redraw() {
     .transition()
       .duration(750)
       .ease("elastic")
-      .attr("r", 6.5);
+      .attr("r", 3);
 
   circle
       .classed("selected", function(d) { return d === selected; })
@@ -82,11 +77,14 @@ function mousedown() {
   redraw();
 }
 
+var width = 960,
+    height = 500;
+    
 function mousemove() {
   if (!dragged) return;
   var m = d3.mouse(svg.node());
-  dragged[0] = Math.max(0, Math.min(width, m[0]));
-  dragged[1] = Math.max(0, Math.min(height, m[1]));
+  dragged[0] = Math.max(0, Math.min(svg[0][0].clientWidth, m[0]));
+  dragged[1] = Math.max(0, Math.min(svg[0][0].clientHeight, m[1]));
   redraw();
 }
 
