@@ -2,11 +2,16 @@ var svg = d3.select("svg")
     .attr("tabindex", 1)
     .on("mousedown", mousedown);
 
-// Initialize to something
+var width = 960,
+    height = 500;
 
-var points = []
-var dragged = null;
-var selected = null;
+var points = d3.range(1, 5).map(function(i) {
+  return [i * width / 5, 50 + Math.random() * (height - 100)];
+});
+
+var dragged = null,
+    selected = points[0];
+
 var line = d3.svg.line();
 
 svg.append("path")
@@ -52,15 +57,12 @@ function redraw() {
     .transition()
       .duration(750)
       .ease("elastic")
-      .attr("r", 3.5);
-  
-  if(selected){
-    circle
-        .classed("selected", function(d) { return d === selected; })
-        .attr("cx", function(d) { return d[0]; })
-        .attr("cy", function(d) { return d[1]; });    
-  }
+      .attr("r", 6.5);
 
+  circle
+      .classed("selected", function(d) { return d === selected; })
+      .attr("cx", function(d) { return d[0]; })
+      .attr("cy", function(d) { return d[1]; });
 
   circle.exit().remove();
 
@@ -83,9 +85,8 @@ function mousedown() {
 function mousemove() {
   if (!dragged) return;
   var m = d3.mouse(svg.node());
-  console.log(m)
-  dragged[0] = Math.max(0, Math.min(svg.style.width, m[0]));
-  dragged[1] = Math.max(0, Math.min(svg.style.height, m[1]));
+  dragged[0] = Math.max(0, Math.min(width, m[0]));
+  dragged[1] = Math.max(0, Math.min(height, m[1]));
   redraw();
 }
 

@@ -15,8 +15,7 @@ var pool = mysql.createPool({
     database: process.env.dbname
 });
 
-console.log("Dependancies Found");
-
+console.log("Dependencies Found");
 
 //log4js.configure({
 //    appenders: { command: { type: 'file', filename: 'state.log' } },
