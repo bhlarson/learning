@@ -5,6 +5,7 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var mysql = require('mysql');
+const fs = require('fs');
 var ioSocket;
 
 var pool = mysql.createPool({
@@ -49,6 +50,25 @@ console.log("Dependencies Found");
 
 //console.log("mysql.createPool exists=" + (typeof pool !== 'undefined'));
 
+var clinetPath = '/img'
+var imgPath = './public' + clinetPath;
+var pathExist = fs.existsSync(imgPath)
+var files = fs.readdirSync(imgPath);
+
+var imFiles = files.filter(function (file) {
+    var match;
+    match = file.match(/.*\.(jpg)/ig);
+    if (!match)
+        match = file.match(/.*\.(png)/ig);
+    if (!match)
+        match = file.match(/.*\.(tif)/ig);
+    return match;
+});
+
+for (var i in imFiles) {
+    console.log('Image Loaded: ' + imFiles[i]);
+}
+
 var port = Number(process.env.nodeport) || 1339;
 app.use(express.static('public'));
 
@@ -56,6 +76,9 @@ app.get('/', function (req, res) {
     res.sendFile('index.html')
 });
 
+app.get('/GetImages', function (req, res) {
+    res.send(imFiles);
+});
 
 http.listen(port, function () {
     console.log("Listening on port " + port);

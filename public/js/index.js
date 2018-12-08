@@ -1,14 +1,18 @@
 var svg = d3.select("svg")
+    .on("mousedown", mousedown)
     .attr("tabindex", 1)
-    .on("mousedown", mousedown);
 
 var points = [];
 
 var dragged = null,
     selected = points[0];
 
-var line = d3.svg.line();
+svg.append("image")
+    .attr("xlink:href","img/1.png")
+    .attr("width", svg[0][0].clientWidth)
+    .attr("height", svg[0][0].clientHeight)
 
+var line = d3.svg.line();
 svg.append("path")
     .datum(points)
     .attr("class", "line")
@@ -38,9 +42,11 @@ d3.select("#interpolate")
     .attr("value", function(d) { return d; })
     .text(function(d) { return d; });
 
+
 svg.node().focus();
 
 function redraw() {
+
   svg.select("path").attr("d", line);
 
   var circle = svg.selectAll("circle")
@@ -76,9 +82,6 @@ function mousedown() {
   points.push(selected = dragged = d3.mouse(svg.node()));
   redraw();
 }
-
-var width = 960,
-    height = 500;
     
 function mousemove() {
   if (!dragged) return;
